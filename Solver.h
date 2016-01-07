@@ -41,16 +41,6 @@ public:
         }
     };
 
-    string toString() {
-        stringstream ss;
-
-        for (int i = 0; i < history.size(); i++) {
-            ss << "Step: " << i << endl << history[i]->toString() << endl;
-        }
-
-        return ss.str();
-    }
-
     vector<Board*> getHistory() {
         return history;
     }
@@ -62,8 +52,6 @@ public:
     double getTime() {
         return time;
     }
-
-
 
 protected:
     vector<Board*> history;
@@ -93,13 +81,13 @@ private:
     Board* solveBoard(Board *board) {
 
         int boardHeight = board->getHeight(), boardWidth = board->getWidth();
-        
+
         int **newBoardArray = Utils::create2DArrayOfInt(boardHeight, boardWidth);
         int **boardArray = board->getBoard();
-        
+
         int i = 0, j = 0, k = 0, l = 0, neighborCount, element;
 
-#pragma omp parallel for shared(boardArray, newBoardArray, boardHeight, boardWidth) private(i, j, k, l, neighborCount, element) num_threads(THRD_NUM)
+        #pragma omp parallel for shared(boardArray, newBoardArray, boardHeight, boardWidth) private(i, j, k, l, neighborCount, element) num_threads(THRD_NUM)
         for (i = 0; i < boardHeight; i++) {
             for (j = 0; j < boardWidth; j++) {
                 neighborCount = 0;
@@ -128,7 +116,7 @@ private:
             }
         }
 
-        return new Board(board->getHeight(), board->getWidth(), newBoardArray);
+        return new Board(boardHeight, boardWidth, newBoardArray);
     }
 };
 

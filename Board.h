@@ -15,7 +15,6 @@
 #define BOARD_H
 
 #include <sstream>
-#include <vector>
 #include "Utils.h"
 
 using namespace std;
@@ -54,20 +53,7 @@ public:
         }
         return 0;
     }
-
-    string toString() {
-        stringstream ss;
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                char sign = (board[i][j] == 1) ? '@' : '.';
-                ss << sign;
-            }
-            ss << endl;
-        }
-
-        return ss.str();
-    }
-
+    
     int ** getBoard() {
         return board;
     }

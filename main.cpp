@@ -10,7 +10,7 @@
  *
  * Created on 6 stycznia 2016, 18:12
  */
-#define THRD_NUM 2
+#define THRD_NUM 4
 
 #include <cstdlib>
 #include "Board.h"
@@ -40,8 +40,6 @@ int main(int argc, char** argv) {
     AbstractDisplay *display = new ASCIIDisplay();
     
     display->display(solver);
-    
-    cout << "Czas: " << solver->getTime() << endl;
 
     return 0;
 }

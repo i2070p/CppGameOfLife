@@ -34,7 +34,7 @@ public:
             for (int k = 0; k < board->getHeight(); k++) {
                 for (int l = 0; l < board->getWidth(); l++) {
                     int value = board->getValue(k, l);
-                    cout << ((value == 1) ? "█" : "░"); //░
+                    cout << ((value == 1) ? "█" : ""); //░
                 }
                 cout << endl;
             }
