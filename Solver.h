@@ -87,7 +87,7 @@ private:
 
         int i = 0, j = 0, k = 0, l = 0, neighborCount, element;
 
-        #pragma omp parallel for shared(boardArray, newBoardArray, boardHeight, boardWidth) private(i, j, k, l, neighborCount, element) num_threads(THRD_NUM)
+#pragma omp parallel for shared(boardArray, newBoardArray, boardHeight, boardWidth) private(i, j, k, l, neighborCount, element) num_threads(THRD_NUM)
         for (i = 0; i < boardHeight; i++) {
             for (j = 0; j < boardWidth; j++) {
                 neighborCount = 0;
@@ -97,16 +97,18 @@ private:
                     for (l = j - 1; l <= j + 1; l++) {
                         if (!(k == i && l == j)) {
                             if (k >= 0 && k < boardHeight && l >= 0 && l < boardWidth) {
-                                neighborCount += boardArray[k][l];
+                                int value = boardArray[k][l];
+                                neighborCount += (value == 1) ? 1 : 0;
                             }
                         }
                     }
                 }
-
-                if (element != 0) {
+               
+                if (element != 0 && element != 2) {
                     if (!(neighborCount == 2 || neighborCount == 3)) {
-                        element = 0;
+                        element = 2;
                     }
+
                 } else {
                     if (neighborCount == 3) {
                         element = 1;

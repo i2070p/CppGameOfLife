@@ -28,13 +28,32 @@ public:
         Board *board = NULL;
 
         for (int i = 0; i < history.size(); i++) {
+
             cout << "Step: " << i << endl;
             board = history[i];
 
             for (int k = 0; k < board->getHeight(); k++) {
                 for (int l = 0; l < board->getWidth(); l++) {
                     int value = board->getValue(k, l);
-                    cout << ((value == 1) ? "█" : "░"); //░
+                    string sign = "░";
+                    switch (value) {
+                        case 0:
+                            sign = ".";
+                            break;
+                        case 1:
+                            sign = "█";
+                            break;
+                            /*case 2:
+                                sign = "░";
+                                break;
+                            case 3:
+                                sign = "@";
+                                break;       
+                            case 4:
+                                sign = "+";
+                                break;   */
+                    }
+                    cout << sign; //░
                 }
                 cout << endl;
             }
@@ -42,7 +61,7 @@ public:
             usleep(delay);
         }
 
-	cout << "Czas generowania stanów: " << solver->getTime() << endl;
+        cout << "Czas generowania stanów: " << solver->getTime() << endl;
     }
 };
 
